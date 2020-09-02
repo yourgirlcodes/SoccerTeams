@@ -1,0 +1,1 @@
+export const tableHeaders = ['Name', 'Year Founded', 'Crest', 'Favorited?']

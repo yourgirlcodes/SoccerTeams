@@ -1,9 +1,12 @@
 import React from "react";
-import { ls_SET, ls_GET, ls_CHECK } from "../../localstorage";
+import { ls_SET, ls_GET } from "../../localstorage";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
-
-export default class Table extends React.Component {
+import {Crest, TableHeader, TableContainer} from '../styled'
+import {tableHeaders} from '../../constants/tableHeaders';
+import { Table } from '@material-ui/core';
+import '../table.css'
+export default class DataTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -62,9 +65,9 @@ export default class Table extends React.Component {
     });
   };
 
+
   componentWillUnmount() {
     window.removeEventListener("beforeunload", () => this.handleLocalStorage());
-
     // saves if component has a chance to unmount
     this.handleLocalStorage();
   }
@@ -74,29 +77,25 @@ export default class Table extends React.Component {
   };
 
   render() {
-    console.log("this.state on render", this.state);
     return (
-      <div>
+      <div style={{height: "20vh"}}>
         {!this.state.teamsList ? (
           <div>loading</div>
         ) : (
-          <table>
+          <table style={{height: "20vh"}}>
             <thead>
-              <tr>
-                <th>Team Name</th>
-                <th>Founding Year</th>
-                <th>Crest</th>
-                <th>Favorited?</th>
+              <tr className="table-headers">
+                {tableHeaders.map(item => <TableHeader>{item}</TableHeader>)}
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{height: "20vh"}}>
               {this.state.teamsList.map(team => {
                 return (
                   <tr key={team.id}>
                     <td>{team.name} </td>
                     <td>{team.founded}</td>
                     <td>
-                      <img src={team.crest} alt="crest" />
+                      <Crest src={team.crest} alt="crest" />
                     </td>
                     <td
                       onClick={() => {
@@ -109,7 +108,6 @@ export default class Table extends React.Component {
                         this.handleClick(team.id);
                       }} color="red"/>
                       ) : (
-                        
                         <FontAwesomeIcon icon={faHeart} onClick={() => {
                         this.handleClick(team.id);
                       }} />
@@ -121,7 +119,6 @@ export default class Table extends React.Component {
             </tbody>
           </table>
         )}
-        )
       </div>
     );
   }

@@ -3,12 +3,7 @@ import "./App.css";
 import { SoccerTeamsTable } from "./SoccerTeamsTable";
 
 const App = () => {
-
-  return (
-    <>
-      <SoccerTeamsTable />
-    </>
-  );
+  return <SoccerTeamsTable />;
 };
 
 export default App;
