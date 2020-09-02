@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ls_SET, ls_GET, ls_CHECK } from "../../localstorage";
-import { IoIosHeart, IoIosHeartEmpty } from "react-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+
 export default class Table extends React.Component {
   constructor(props) {
     super(props);
@@ -11,6 +13,11 @@ export default class Table extends React.Component {
   }
 
   async componentDidMount() {
+    window.addEventListener("beforeunload", () => this.handleLocalStorage());
+    await this.callForTeams();
+  }
+
+  callForTeams = async () => {
     let list = [];
     const liked = ls_GET();
 
@@ -31,15 +38,11 @@ export default class Table extends React.Component {
           return list;
         });
       });
-    this.setState(
-      {
-        favoriteTeams: liked ? liked : [],
-        teamsList: list
-      },
-      () => console.log("state CDM", this.state)
-    );
-  }
-
+    this.setState({
+      favoriteTeams: liked ? liked : [],
+      teamsList: list
+    });
+  };
 
   handleClick = teamId => {
     let favorites = [...this.state.favoriteTeams];
@@ -48,20 +51,27 @@ export default class Table extends React.Component {
     favorites.map((item, i) => {
       if (item === teamId) {
         favorites.splice(i, 1);
-        addFavorite = false;
+        return (addFavorite = false);
       }
     });
 
     if (addFavorite) favorites.push(teamId);
 
-    this.setState(
-      {
-        favoriteTeams: [...favorites]
-      },
-      () => console.log("favorites", favorites)
-    );
+    this.setState({
+      favoriteTeams: [...favorites]
+    });
   };
 
+  componentWillUnmount() {
+    window.removeEventListener("beforeunload", () => this.handleLocalStorage());
+
+    // saves if component has a chance to unmount
+    this.handleLocalStorage();
+  }
+
+  handleLocalStorage = () => {
+    ls_SET(this.state.favoriteTeams);
+  };
 
   render() {
     console.log("this.state on render", this.state);
@@ -85,7 +95,9 @@ export default class Table extends React.Component {
                   <tr key={team.id}>
                     <td>{team.name} </td>
                     <td>{team.founded}</td>
-                    <td></td>
+                    <td>
+                      <img src={team.crest} alt="crest" />
+                    </td>
                     <td
                       onClick={() => {
                         this.handleClick(team.id);
@@ -93,11 +105,15 @@ export default class Table extends React.Component {
                     >
                       {this.state.favoriteTeams &&
                       this.state.favoriteTeams.includes(team.id) ? (
-                        <p>Favorite</p>
+                        <FontAwesomeIcon icon={faHeart} onClick={() => {
+                        this.handleClick(team.id);
+                      }} color="red"/>
                       ) : (
-                        <p>Unfavorite</p>
+                        
+                        <FontAwesomeIcon icon={faHeart} onClick={() => {
+                        this.handleClick(team.id);
+                      }} />
                       )}
-                      {!this.state.favoriteTeams && <div>no</div>}
                     </td>
                   </tr>
                 );
