@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getTeamsList } from "../api";
 import { ls } from "../localstorage";
-import { Table } from "./components/Table";
+import Table from "./components/Table";
 import { FavouritesList } from "./components/FavouritesList";
 
 export class SoccerTeamsTable extends React.Component {
