@@ -28,11 +28,10 @@ export default class DataTable extends React.Component {
       .then(json => {
         json.teams.map(team => {
           let teamObject = {
-            id: team.idTeam,
-            name: team.strTeam,
-            founded: team.intFormedYear,
-            crest: team.strTeamBadge,
-            liked: "hidden"
+            idTeam: team.idTeam,
+            strTeam: team.strTeam,
+            intFormedYear: team.intFormedYear,
+            strTeamBadge: team.strTeamBadge,
           };
           list.push(teamObject);
           return list;
@@ -79,9 +78,11 @@ export default class DataTable extends React.Component {
         ) : (
           <Table>
             <TableHead>
+            <tr>
               {tableHeaders.map(item => (
-                <TableHeaderItems>{item}</TableHeaderItems>
+                <TableHeaderItems key={Math.random()}>{item}</TableHeaderItems>
               ))}
+              </tr>
             </TableHead>
             <LineItem
               teamsList={this.state.teamsList}

@@ -9,22 +9,22 @@ export const LineItem = ({ handleLiking, favoriteTeams, teamsList }) => {
   };
 
   return (
-    <TableBody>
+    <TableBody >
       {teamsList.map(team => {
         return (
-          <TableRow
-            key={team.id}
+          <TableRow data-testid="teams-row"
+            key={team.idTeam}
             onClick={() => {
-              handleClick(team.id);
+              handleClick(team.idTeam);
             }}
           >
-            <TD>{team.name} </TD>
-            <TD>{team.founded}</TD>
+            <TD>{team.strTeam} </TD>
+            <TD>{team.intFormedYear}</TD>
             <TD>
-              <Crest src={team.crest} alt="crest" />
+              <Crest src={team.strTeamBadge} alt="crest" />
             </TD>
             <TD>
-              {favoriteTeams && favoriteTeams.includes(team.id) ? (
+              {favoriteTeams && favoriteTeams.includes(team.idTeam) ? (
                 <FontAwesomeIcon icon={faHeart} color="blue" />
               ) : (
                 <FontAwesomeIcon icon={faHeart} color="lightgrey" />
