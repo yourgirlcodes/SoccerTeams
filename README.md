@@ -7,16 +7,21 @@ This is a react project using a RESTful API which:
 The project uses local storage to remember the user's favorited teams
 
 ## Architecture:
-- App
-- constants
-- localstorage
-- SoccerTeamsTable
+
+  - App
+
+  - constants
+
+  - localstorage
+
+  - SoccerTeamsTable
 
                 - components
                
                         - LineItem
                         - Table
-- tests
+  - tests
+
 
 ## Technologies/Stack
 - React.js
