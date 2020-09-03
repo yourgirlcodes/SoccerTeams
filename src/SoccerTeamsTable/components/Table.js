@@ -8,7 +8,8 @@ export default class DataTable extends React.Component {
     super(props);
     this.state = {
       teamsList: [],
-      favoriteTeams: []
+      favoriteTeams: [],
+      loading: false
     };
   }
 
@@ -20,6 +21,9 @@ export default class DataTable extends React.Component {
   callForTeams = async () => {
     let list = [];
     const liked = ls_GET();
+    this.setState({
+      loading: true
+    })
 
     await fetch(
       "https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=English%20Premier%20League"
@@ -39,7 +43,8 @@ export default class DataTable extends React.Component {
       });
     this.setState({
       favoriteTeams: liked ? liked : [],
-      teamsList: list
+      teamsList: list,
+      loading: false
     });
   };
 
@@ -73,7 +78,7 @@ export default class DataTable extends React.Component {
   render() {
     return (
       <TableContainer>
-        {!this.state.teamsList ? (
+        {!this.state.teamsList || this.state.loading ? (
           <div>loading</div>
         ) : (
           <Table>

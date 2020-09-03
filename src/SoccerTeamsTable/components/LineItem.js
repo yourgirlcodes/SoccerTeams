@@ -23,11 +23,11 @@ export const LineItem = ({ handleLiking, favoriteTeams, teamsList }) => {
             <TD>
               <Crest src={team.strTeamBadge} alt="crest" />
             </TD>
-            <TD>
+            <TD data-testid="heart-icon">
               {favoriteTeams && favoriteTeams.includes(team.idTeam) ? (
-                <FontAwesomeIcon icon={faHeart} color="blue" />
+                <FontAwesomeIcon icon={faHeart} color="blue" id="blue" data-testid="heart-icon-blue"/>
               ) : (
-                <FontAwesomeIcon icon={faHeart} color="lightgrey" />
+                <FontAwesomeIcon icon={faHeart} color="lightgrey"  id="grey" data-testid="heart-icon-grey"/>
               )}
             </TD>
           </TableRow>
