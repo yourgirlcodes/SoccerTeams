@@ -11,7 +11,9 @@ The project uses local storage to remember the user's favorited teams
 - constants
 - localstorage
 - SoccerTeamsTable
+
                 - components
+               
                         - LineItem
                         - Table
 - tests
@@ -27,5 +29,5 @@ The project uses local storage to remember the user's favorited teams
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and uses the following API:
 "https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=English%20Premier%20League"
 
-## To run: npm start
-## To run tests: npm run test
+To run: npm start
+To run tests: npm run test
