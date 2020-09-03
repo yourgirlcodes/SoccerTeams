@@ -1,11 +1,8 @@
 import React from "react";
 import { ls_SET, ls_GET } from "../../localstorage";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
-import {Crest, TableHeader, TableContainer} from '../styled'
-import {tableHeaders} from '../../constants/tableHeaders';
-import { Table } from '@material-ui/core';
-import '../table.css'
+import { TableHead, TableContainer, Table, TableHeaderItems } from "../styled";
+import { tableHeaders } from "../../constants/tableHeaders";
+import { LineItem } from "./LineItem";
 export default class DataTable extends React.Component {
   constructor(props) {
     super(props);
@@ -65,10 +62,8 @@ export default class DataTable extends React.Component {
     });
   };
 
-
   componentWillUnmount() {
     window.removeEventListener("beforeunload", () => this.handleLocalStorage());
-    // saves if component has a chance to unmount
     this.handleLocalStorage();
   }
 
@@ -78,48 +73,24 @@ export default class DataTable extends React.Component {
 
   render() {
     return (
-      <div style={{height: "20vh"}}>
+      <TableContainer>
         {!this.state.teamsList ? (
           <div>loading</div>
         ) : (
-          <table style={{height: "20vh"}}>
-            <thead>
-              <tr className="table-headers">
-                {tableHeaders.map(item => <TableHeader>{item}</TableHeader>)}
-              </tr>
-            </thead>
-            <tbody style={{height: "20vh"}}>
-              {this.state.teamsList.map(team => {
-                return (
-                  <tr key={team.id}>
-                    <td>{team.name} </td>
-                    <td>{team.founded}</td>
-                    <td>
-                      <Crest src={team.crest} alt="crest" />
-                    </td>
-                    <td
-                      onClick={() => {
-                        this.handleClick(team.id);
-                      }}
-                    >
-                      {this.state.favoriteTeams &&
-                      this.state.favoriteTeams.includes(team.id) ? (
-                        <FontAwesomeIcon icon={faHeart} onClick={() => {
-                        this.handleClick(team.id);
-                      }} color="red"/>
-                      ) : (
-                        <FontAwesomeIcon icon={faHeart} onClick={() => {
-                        this.handleClick(team.id);
-                      }} />
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <Table>
+            <TableHead>
+              {tableHeaders.map(item => (
+                <TableHeaderItems>{item}</TableHeaderItems>
+              ))}
+            </TableHead>
+            <LineItem
+              teamsList={this.state.teamsList}
+              handleLiking={this.handleClick}
+              favoriteTeams={this.state.favoriteTeams}
+            />
+          </Table>
         )}
-      </div>
+      </TableContainer>
     );
   }
 }
