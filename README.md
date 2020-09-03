@@ -8,20 +8,19 @@ The project uses local storage to remember the user's favorited teams
 
 ## Architecture:
 
-  - App
 
-  - constants
-
-  - localstorage
-
-  - SoccerTeamsTable
-
-                - components
-               
-                        - LineItem
-                        - Table
-  - tests
-
+    - App 
+    
+    - constants
+       
+    - localstorage
+        
+    - SoccerTeamsTable
+        - components
+            - LineItem
+            - Table
+            
+    - tests
 
 ## Technologies/Stack
 - React.js
