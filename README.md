@@ -11,9 +11,9 @@ The project uses local storage to remember the user's favorited teams
 - constants
 - localstorage
 - SoccerTeamsTable
-        - components
-            - LineItem
-            - Table
+                - components
+                        - LineItem
+                        - Table
 - tests
 
 ## Technologies/Stack
@@ -21,6 +21,7 @@ The project uses local storage to remember the user's favorited teams
 - styled-components
 - @testing-library/react and react-dom/test-utils for some tests
 - RESTful API
+-local storage to remember the user's favorited teams
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and uses the following API:
